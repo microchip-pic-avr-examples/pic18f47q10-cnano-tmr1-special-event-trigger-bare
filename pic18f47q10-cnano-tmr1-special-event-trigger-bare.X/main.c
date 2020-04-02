@@ -28,77 +28,75 @@
 
 #include <xc.h>
 
-#define COMPARE_VALUE_HIGH              0x0F
-#define COMPARE_VALUE_LOW               0xFF
-
-#define PPS_CONFIG_RB0_CCP1_OUT         0x05
-
-static void CLK_init(void);
-static void PPS_init(void);
-static void PORT_init(void);
-static void TMR1_init(void);
-static void CCP1_init(void);
+static void CLK_Initialize(void);
+static void PPS_Initialize(void);
+static void PORT_Initialize(void);
+static void TMR1_Initialize(void);
+static void CCP1_Initialize(void);
 
 /* Clock initialization function */
-static void CLK_init(void)
+static void CLK_Initialize(void)
 {
     /* set HFINTOSC as new oscillator source */
-    OSCCON1 = _OSCCON1_NOSC1_MASK | _OSCCON1_NOSC2_MASK;
+    OSCCON1bits.NOSC = 0x6;
 
     /* set Clock Div by 32 */
-    OSCCON1 |= _OSCCON1_NDIV0_MASK | _OSCCON1_NDIV2_MASK;
-
+    OSCCON1bits.NDIV = 0x5;      
+    
     /* set HFFRQ to 32MHz */
-    OSCFRQ = _OSCFRQ_FRQ1_MASK | _OSCFRQ_FRQ2_MASK;
+    OSCFRQbits.HFFRQ = 0x6; 
 }
 
 /* PPS initialization function */
-static void PPS_init(void)
+static void PPS_Initialize(void)
 {
     /* Configure RB0 for CCP1 output */
-    RB0PPS = PPS_CONFIG_RB0_CCP1_OUT;
+    RB0PPS = 0x05;
 }
 
 /* Port initialization function */
-static void PORT_init(void)
+static void PORT_Initialize(void)
 {
     /* Set RB0 as output */
-    TRISB &= ~(_TRISB_TRISB0_MASK);
+    TRISBbits.TRISB0 = 0;
 }
 
 /* TMR1 initialization function */
-static void TMR1_init(void)
+static void TMR1_Initialize(void)
 {
     /* Set timer Source Clock to FOSC/4 */
-    T1CLK = _T1CLK_T1CS0_MASK;
+    T1CLKbits.CS = 0x1;
 
     /* Enable timer */
-    T1CON = _T1CON_TMR1ON_MASK;
+    T1CONbits.ON = 1;
 }
 
 /* CCP1 initialization function */
-static void CCP1_init(void)
+static void CCP1_Initialize(void)
 {
     /* Select TMR1 as input for CCP1*/
-    CCPTMRS |= _CCPTMRS_C1TSEL0_MASK;
+    CCPTMRSbits.C1TSEL = 0x1;
 
     /* Set the high value for compare */
-    CCPR1H = COMPARE_VALUE_HIGH;
+    CCPR1H = 0x0F;
 
     /* Set the low value for compare */
-	CCPR1L = COMPARE_VALUE_LOW;
+    CCPR1L = 0xFF;
 
-	CCP1CON = _CCP1CON_CCP1MODE1_MASK       /* Compare mode with toggle*/
-            | _CCP1CON_EN_MASK;             /* Enable CCP1 */
+    /* Compare mode with toggle*/
+    CCP1CONbits.CCP1MODE = 0x2;
+
+    /* Enable CCP1 */
+    CCP1CONbits.EN = 1;             
 }
 
 void main(void)
 {
-    CLK_init();
-    PPS_init();
-    PORT_init();
-    TMR1_init();
-    CCP1_init();
+    CLK_Initialize();
+    PPS_Initialize();
+    PORT_Initialize();
+    TMR1_Initialize();
+    CCP1_Initialize();
 
     while (1)
     {
