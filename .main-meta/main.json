@@ -4,7 +4,7 @@
     "content": {
         "metaDataVersion": "1.1.0",
         "name": "com.microchip.mcu8.mplabx.project.pic18f47q10-cnano-tmr1-special-event-trigger-bare",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "displayName": "Using TMR1 to trigger a special event",
         "projectName": "pic18f47q10-cnano-tmr1-special-event-trigger-bare",
         "shortDescription": "This example shows how to use the TMR1 configured as a counter. The Capture/Compare/PWM (CCP) module will be configured with a user defined value. A GPIO pin will be configured as output and the event will toggle the logic value of this pin. The event will be triggered when the counted value from TMR1 will be equal with the CCP value.",
@@ -39,16 +39,16 @@
         "author": "Microchip",
         "subcategories": [
             [
-               "Peripherals", "TIMER", "TMR1"
+               "Peripherals"
+			   "TMR1"
             ]           			
         ],
         "peripherals": [
-            "TIMER", "TMR1"
+            "TMR1"
         ],
         "keywords": [
             "Getting Started",
 			"Timers/Counters",
-            "Timer/Counter",
             "Event Trigger",
             "Bare Metal"
         ],

@@ -1,5 +1,4 @@
-<div id="readme" class="Box-body readme blob js-code-block-container">
- <article class="markdown-body entry-content p-3 p-md-6" itemprop="This needs to locked down and 'never' changed"><p><a href="https://www.microchip.com" rel="nofollow"><img src="images/MicrochipLogo.png" alt="MCHP" style="max-width:40%;"></a></p>
+[![MCHP](images/microchip.png)](https://www.microchip.com)
 
 # PIC18F47Q10 Using TMR1 to trigger a special event
 The PIC18F47Q10 features Timers with special event functions. This example shows how to use the TMR1 configured as a counter. The Capture/Compare/PWM (CCP) module will be configured with a user defined value. A GPIO pin will be configured as output and the event will toggle the logic value of this pin. The event will be triggered when the counted value from TMR1 will be equal with the CCP value.
